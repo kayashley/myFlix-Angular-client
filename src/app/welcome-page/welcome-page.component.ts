@@ -22,10 +22,4 @@ export class WelcomePageComponent implements OnInit {
       width: '280px',
     });
   }
-
-  openProfile(): void {
-    this.dialog.open(ProfilePageComponent, {
-      width: '280px',
-    });
-  }
 }

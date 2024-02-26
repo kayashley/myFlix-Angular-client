@@ -53,14 +53,15 @@ export class MovieCardComponent implements OnInit {
   }
 
   // checks to see if movie is already favorited by user
-  isFavoriteMovies(movieID: string): boolean {
+  isFavoriteMovie(movieID: string): boolean {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     return user.favoriteMovies.indexOf(movieID) >= 0;
   }
 
   // adds a movie to users favorites list
-  public addFavoriteMovies(id: string): void {
-    if (this.isFavoriteMovies(id)) {
+  public addToFavorites(id: string): void {
+    if (this.isFavoriteMovie(id)) {
+      // movie is already a favorite, then remove
       this.removeFavoriteMovie(id);
     } else {
       this.fetchApiData.addFavoriteMovies(id).subscribe(() => {
@@ -72,9 +73,10 @@ export class MovieCardComponent implements OnInit {
     }
   }
 
+  // removes movie from favorites list
   public removeFavoriteMovie(id: string): void {
     this.fetchApiData.deleteFavoriteMovie(id).subscribe(() => {
-      this.snackbar.open('removed from favorites', 'OK', {
+      this.snackbar.open('Removed from favorites', 'OK', {
         duration: 2000,
       });
     });

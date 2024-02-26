@@ -1,3 +1,5 @@
+<app-nav-bar></app-nav-bar>
+
 <div class="movie-page" style="display: flex;">
 
     <div class="movie-view">
@@ -27,12 +29,13 @@
                 >
                     Synopsis
                 </button>
-                <!-- <button
-                mat-icon-button
-                (click)="isFavoriteMovies(movie._id) ? removeFavoriteMovie(movie._id) : addFavoriteMovies(movie._id)"
-                [ngClass]="isFavoriteMovies(movie._id) ? 'mat-flat-button' : 'mat-icon-button'">
-                <mat-icon>{{ isFavoriteMovies(movie._id) ? 'favorite' : 'favorite_border' }}</mat-icon>
-                </button> -->
+                <button 
+                    mat-icon-button
+                    (click)="isFavoriteMovie(movie._id) ? removeFavoriteMovie(movie._id) : addToFavorites(movie._id)"
+                    >
+                    <mat-icon>favorite_border</mat-icon>
+                </button>
+                    
             </mat-card-actions>
         </mat-card>
     </div>

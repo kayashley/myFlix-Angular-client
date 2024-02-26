@@ -1,0 +1,51 @@
+<app-nav-bar></app-nav-bar>
+<div class="profile-page">
+    <mat-card>
+        <mat-card-title>Profile</mat-card-title>
+        <mat-card-content>
+            Username: {{ user.Username }} <br>
+            Password: {{ user.Password }} <br>
+            Email: {{ user.Email }} <br>
+            Birthday: {{ user.Birthday | date: 'longDate'}}
+        </mat-card-content>
+        <mat-card-actions>
+            <button (click)="back()">
+                Back
+            </button>
+            <button (click)="updateUser()">
+                Update
+            </button>
+            <button (click)="deleteUser()">
+                Delete Account
+            </button>
+        </mat-card-actions>
+    </mat-card>
+    <div>
+        <h3>Favorite Movies</h3>
+        <div *ngIf="favoriteMovies.length === 0" style="flex: 1 1 auto;">
+            <p>No favorites added.</p>
+        </div>
+
+        <mat-card *ngFor="let movie of favoriteMovies" class="movie-card">
+            <mat-card-header>
+                <mat-card-title>{{movie.title}}</mat-card-title>
+                <mat-card-subtitle>Directed by: {{movie.director.name}}</mat-card-subtitle>
+            </mat-card-header>
+            <img src={{movie.imagepath}} alt= {{movie.title}} />
+            <mat-card-actions>
+                <button>
+                    Genre
+                </button>
+                <button>
+                    Director
+                </button>
+                <button>
+                    Synopsis
+                </button>
+                <button>
+                    <mat-icon></mat-icon>
+                </button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</div>

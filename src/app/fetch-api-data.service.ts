@@ -18,7 +18,7 @@ export class FetchApiDataService {
     Username: '',
     Password: '',
     Email: '',
-    Birth: '',
+    Birthday: '',
   });
   currentUser = this.userData.asObservable();
 
@@ -110,10 +110,11 @@ export class FetchApiDataService {
   }
 
   // api calls for users favorite movie(s) endpoint
-  public getFavoriteMovies(username: string): Observable<any> {
+  public getFavoriteMovies(): Observable<any> {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
     const token = localStorage.getItem('token');
     return this.http
-      .get(apiUrl + 'users/' + username, {
+      .get(apiUrl + 'users/' + user.username, {
         headers: new HttpHeaders({
           Authorization: 'Bearer ' + token,
         }),
@@ -157,7 +158,8 @@ export class FetchApiDataService {
     console.log(index);
 
     if (index > -1) {
-      user.favoriteMovies.splice(index, 1);
+      // only splice array when item is found
+      user.favoriteMovies.splice(index, 1); // second param removes 1 item only
     }
     localStorage.setItem('user', JSON.stringify(user));
     return this.http
@@ -169,20 +171,23 @@ export class FetchApiDataService {
   }
 
   // api calls to edit users profile endpoint
-  public editUser(username: string): Observable<any> {
+  public updateUser(updatedUser: any): Observable<any> {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
     const token = localStorage.getItem('token');
     return this.http
-      .put(apiUrl + 'users/' + username, {
+      .put(apiUrl + 'users/' + user.username, updatedUser, {
         headers: new HttpHeaders({ Authorization: 'Bearer ' + token }),
       })
       .pipe(map(this.extractResponseData), catchError(this.handleError));
   }
 
   // api calls to delete user endpoint
-  public deleteUser(username: string): Observable<any> {
+  public deleteUser(): Observable<any> {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
     const token = localStorage.getItem('token');
+    console.log(token);
     return this.http
-      .delete(apiUrl + 'users/' + username, {
+      .delete(apiUrl + 'users/' + user.username, {
         headers: new HttpHeaders({ Authorization: 'Bearer ' + token }),
       })
       .pipe(map(this.extractResponseData), catchError(this.handleError));
