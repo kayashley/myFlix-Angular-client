@@ -130,11 +130,11 @@ export class FetchApiDataService {
   public addFavoriteMovies(movieID: string): Observable<any> {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     const token = localStorage.getItem('token');
-    user.favoriteMovies.push(movieID);
+    user.FavoriteMovies.push(movieID);
     localStorage.setItem('user', JSON.stringify(user));
     return this.http
       .post(
-        apiUrl + 'users/' + user.username + '/movies/' + movieID,
+        apiUrl + 'users/' + user.Username + '/movies/' + movieID,
         {},
         {
           headers: new HttpHeaders({ Authorization: 'Bearer ' + token }),
@@ -146,7 +146,7 @@ export class FetchApiDataService {
 
   isFavoriteMovies(movieID: string): boolean {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
-    return user.favoriteMovies.indexOf(movieID) >= 0;
+    return user.FavoriteMovies.indexOf(movieID) >= 0;
   }
 
   // api calls to delete/remove movie from users favorite list endpoint
@@ -154,16 +154,15 @@ export class FetchApiDataService {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     const token = localStorage.getItem('token');
 
-    const index = user.favoriteMovies.indexOf(movieID);
+    const index = user.FavoriteMovies.indexOf(movieID);
     console.log(index);
 
-    if (index > -1) {
-      // only splice array when item is found
-      user.favoriteMovies.splice(index, 1); // second param removes 1 item only
-    }
+    // only splice array when item is found
+    user.FavoriteMovies.splice(index, 1); // second param removes 1 item only
+
     localStorage.setItem('user', JSON.stringify(user));
     return this.http
-      .delete(apiUrl + 'users/' + user.username + '/movies/' + movieID, {
+      .delete(apiUrl + 'users/' + user.Username + '/movies/' + movieID, {
         headers: new HttpHeaders({ Authorization: 'Bearer ' + token }),
         responseType: 'text',
       })

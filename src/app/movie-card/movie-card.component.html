@@ -14,24 +14,29 @@
                 <button
                     mat-button
                     color="primary"
+                    (click)="getGenre(movie.genre)"
                 >
                     Genre
                 </button>
                 <button
                     mat-button
                     color="primary"
+                    (click)="getOneDirector(movie.director)"
+                    
                 >
                     Director
                 </button>
                 <button
                     mat-button
                     color="primary"
+                    (click)="oneMovieDetails(movie.description)"
                 >
                     Synopsis
                 </button>
                 <button 
                     mat-icon-button
-                    (click)="isFavoriteMovie(movie._id) ? removeFavoriteMovie(movie._id) : addToFavorites(movie._id)"
+                        (click)="isFavoriteMovie(movie._id) ? removeFavoriteMovie(movie._id) : addToFavorites(movie._id)"
+                        [ngClass]="isFavoriteMovie(movie._id) ? 'mat-flat-button' : 'mat-icon-button'"
                     >
                     <mat-icon>favorite_border</mat-icon>
                 </button>

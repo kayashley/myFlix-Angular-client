@@ -1,0 +1,97 @@
+.profile-page {
+  background-image: linear-gradient(180deg, #4d7088, rgb(255, 255, 255));
+  padding-top: 50px;
+}
+
+.profile-card {
+  width: 30%;
+  padding: 2%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.profile-btn {
+  margin-right: 2%;
+  padding: 8px;
+  border: none;
+  border-radius: 8px;
+  background-color: #94a9b7;
+}
+
+.center-btn {
+  padding-top: 4%;
+  justify-content: center;
+}
+
+.no-favs {
+  text-align: center;
+}
+
+.fav-movie-header {
+  color: black;
+  font-size: 25px;
+  text-align: center;
+  padding: 2%;
+}
+
+.favorite-movies {
+  padding-left: 5%;
+  padding-bottom: 5%;
+  position: relative;
+  display: grid;
+  max-width: 100vw;
+  margin: 0.5rem auto;
+  row-gap: 3em;
+}
+
+.movie-card {
+  margin-top: 5px;
+  justify-self: center;
+  justify-content: center;
+  width: 50vw;
+}
+
+.movie-card > img {
+  width: 100%;
+}
+
+@media screen and (min-width: 250px) {
+  .favorite-movies {
+    grid-template-columns: 1fr;
+  }
+
+  .movie-card {
+    width: 80vw;
+  }
+}
+
+@media screen and (mid-width: 500px) {
+  .favorite-movies {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .movie-card {
+    width: 45vw;
+  }
+}
+
+@media screen and (min-width: 750px) {
+  .favorite-movies {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .movie-card {
+    width: 30vw;
+  }
+}
+
+@media screen and (min-width: 1080px) {
+  .favorite-movies {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+
+  .movie-card {
+    width: 20vw;
+  }
+}

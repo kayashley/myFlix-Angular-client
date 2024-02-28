@@ -3,6 +3,9 @@ import { FetchApiDataService } from '../fetch-api-data.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { GenreComponent } from '../genre/genre.component';
+import { DirectorComponent } from '../director/director.component';
+import { MovieDetailsComponent } from '../movie-details/movie-details.component';
 
 @Component({
   selector: 'app-movie-card',
@@ -19,7 +22,7 @@ export class MovieCardComponent implements OnInit {
     public fetchApiData: FetchApiDataService,
     public router: Router,
     public dialog: MatDialog,
-    public snackbar: MatSnackBar
+    public snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -55,17 +58,21 @@ export class MovieCardComponent implements OnInit {
   // checks to see if movie is already favorited by user
   isFavoriteMovie(movieID: string): boolean {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
-    return user.favoriteMovies.indexOf(movieID) >= 0;
+    console.log(movieID);
+    console.log(user);
+
+    return user.FavoriteMovies.indexOf(movieID) >= 0;
   }
 
   // adds a movie to users favorites list
   public addToFavorites(id: string): void {
     if (this.isFavoriteMovie(id)) {
+      console.log(id);
       // movie is already a favorite, then remove
       this.removeFavoriteMovie(id);
     } else {
       this.fetchApiData.addFavoriteMovies(id).subscribe(() => {
-        this.snackbar.open('Movie added to favorites', 'OK', {
+        this.snackBar.open('Movie added to favorites', 'OK', {
           duration: 2000,
         });
         this.getFavorites;
@@ -76,9 +83,33 @@ export class MovieCardComponent implements OnInit {
   // removes movie from favorites list
   public removeFavoriteMovie(id: string): void {
     this.fetchApiData.deleteFavoriteMovie(id).subscribe(() => {
-      this.snackbar.open('Removed from favorites', 'OK', {
+      this.snackBar.open('Removed from favorites', 'OK', {
         duration: 2000,
       });
+    });
+  }
+
+  public getGenre(genre: any) {
+    this.dialog.open(GenreComponent, {
+      width: '400px',
+      height: '300px',
+      data: { genre: genre },
+    });
+  }
+
+  public getOneDirector(director: any) {
+    this.dialog.open(DirectorComponent, {
+      width: '400px',
+      height: '300px',
+      data: { director: director },
+    });
+  }
+
+  public oneMovieDetails(details: string) {
+    this.dialog.open(MovieDetailsComponent, {
+      width: '400px',
+      height: '300px',
+      data: { details: details },
     });
   }
 }

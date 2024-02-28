@@ -1,50 +1,73 @@
 <app-nav-bar></app-nav-bar>
 <div class="profile-page">
-    <mat-card>
-        <mat-card-title>Profile</mat-card-title>
-        <mat-card-content>
-            Username: {{ user.Username }} <br>
-            Password: {{ user.Password }} <br>
-            Email: {{ user.Email }} <br>
-            Birthday: {{ user.Birthday | date: 'longDate'}}
+    <mat-card class="profile-card">
+        <mat-card-title>
+            <h3>Profile</h3>
+        </mat-card-title>
+        <mat-card-content >
+            <label><b>Username: </b> <em>{{ user.Username }} </em></label>
+            <br>
+            <label><b>Password: </b> <em>{{ user.Password }}</em> </label>
+            <br>
+            <label><b>Email: </b> <em>{{ user.Email }}</em> </label>
+            <br>
+            <label><b>Birthday: </b> <em>{{ user.Birthday | date: 'longDate'}}</em> </label>
+            
         </mat-card-content>
-        <mat-card-actions>
-            <button (click)="back()">
+        <mat-card-actions class="center-btn">
+            <button (click)="back()" class="profile-btn">
                 Back
             </button>
-            <button (click)="updateUser()">
+            <button (click)="updateUser()" class="profile-btn">
                 Update
             </button>
-            <button (click)="deleteUser()">
+            <button (click)="deleteUser()" class="profile-btn">
                 Delete Account
             </button>
         </mat-card-actions>
     </mat-card>
-    <div>
-        <h3>Favorite Movies</h3>
-        <div *ngIf="favoriteMovies.length === 0" style="flex: 1 1 auto;">
-            <p>No favorites added.</p>
-        </div>
-
-        <mat-card *ngFor="let movie of favoriteMovies" class="movie-card">
+    <h3 class="fav-movie-header">Favorite Movies</h3>
+    <div *ngIf="FavoriteMovies.length === 0" style="flex: 1 1 auto;" class="no-favs">
+        <p>No favorites added.</p>
+    </div>
+    <div class="favorite-movies">
+        <mat-card *ngFor="let movie of FavoriteMovies" class="movie-card">
             <mat-card-header>
                 <mat-card-title>{{movie.title}}</mat-card-title>
                 <mat-card-subtitle>Directed by: {{movie.director.name}}</mat-card-subtitle>
             </mat-card-header>
             <img src={{movie.imagepath}} alt= {{movie.title}} />
             <mat-card-actions>
-                <button>
+                <button
+                    mat-button
+                    color="primary"
+                    (click)="getGenre(movie.genre)"
+                >
                     Genre
                 </button>
-                <button>
+                <button
+                    mat-button
+                    color="primary"
+                    (click)="getOneDirector(movie.director)"
+                    
+                >
                     Director
                 </button>
-                <button>
+                <button
+                    mat-button
+                    color="primary"
+                    (click)="oneMovieDetails(movie.description)"
+                >
                     Synopsis
                 </button>
-                <button>
-                    <mat-icon></mat-icon>
+                <button 
+                    mat-icon-button
+                        (click)="removeFavoriteMovie(movie._id)"
+                        [ngClass]="isFavoriteMovie(movie._id) ? 'mat-flat-button' : 'mat-icon-button'"
+                    >
+                    <mat-icon>favorite_border</mat-icon>
                 </button>
+                    
             </mat-card-actions>
         </mat-card>
     </div>
